@@ -13,6 +13,7 @@ import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import main.java.com.akenu.lexicongenerator.ui.ShowWord;
 
 /**
  *
@@ -83,6 +84,11 @@ public class LexiconUI extends javax.swing.JFrame {
         });
 
         jDefinitionList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jDefinitionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jDefinitionListValueChanged(evt);
+            }
+        });
         jScrollPane3.setViewportView(jDefinitionList);
 
         jFileMenu.setText("File");
@@ -221,6 +227,18 @@ public class LexiconUI extends javax.swing.JFrame {
     private void jAboutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAboutMenuActionPerformed
         JOptionPane.showMessageDialog(this, "Lexicon Generator, written by Frater Akenu", "Lexicon Generator: About", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jAboutMenuActionPerformed
+
+    private void jDefinitionListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jDefinitionListValueChanged
+        // TODO add your handling code here:
+        ShowWord showWord = new ShowWord();
+        showWord.setLexiconObject(lo);
+        Object selectedValue = this.jDefinitionList.getSelectedValue();
+        showWord.setTerm(selectedValue.toString());
+        showWord.setDefinition(lo.readDefinition(selectedValue.toString()));
+        showWord.loadData();
+        JOptionPane.showMessageDialog(this, showWord);
+
+    }//GEN-LAST:event_jDefinitionListValueChanged
 
     /**
      * @param args the command line arguments
